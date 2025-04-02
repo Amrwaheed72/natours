@@ -1,16 +1,16 @@
 {
-  "name": "natours",
-  "version": "1.0.0",
-  "main": "app.js",
-  "type": "module",
-  "scripts": {
-    "start": "nodemon server.js"
-  },
-  "author": "Amr Waheed",
-  "license": "ISC",
-  "description": "learning express and mongodb",
-  "dependencies": {
-    "express": "^4.21.2",
-    "morgan": "^1.10.0"
-  }
+    "name": "natours",
+    "version": "1.0.0",
+    "main": "app.js",
+    "type": "module",
+    "scripts": {
+        "start": "nodemon server.js"
+    },
+    "author": "Amr Waheed",
+    "license": "ISC",
+    "description": "learning express and mongodb",
+    "dependencies": {
+        "express": "^4.21.2",
+        "morgan": "^1.10.0"
+    }
 }

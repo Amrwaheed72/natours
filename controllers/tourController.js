@@ -8,7 +8,6 @@ const __dirname = dirname(__filename);
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`))
 
 export const getAllTours = (req, res) => {
-
     res.status(200).json({
         status: 'success',
         results: tours.length,
