@@ -10,7 +10,10 @@
     "license": "ISC",
     "description": "learning express and mongodb",
     "dependencies": {
+        "dotenv": "^16.5.0",
         "express": "^4.21.2",
+        "mongodb": "^6.16.0",
+        "mongoose": "^8.14.0",
         "morgan": "^1.10.0"
     },
     "devDependencies": {
