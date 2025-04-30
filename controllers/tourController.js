@@ -3,19 +3,41 @@ import { Tour } from '../models/tourModel.js'
 export const getAllTours = async (req, res) => {
     try {
         //BUILD QUERY
-        //1) Filtering
+        //1A) Filtering
         // get the fields of req.query out of it and store it in new object so that it doesnt affect the original object
         const queryObj = { ...req.query }
         const excludedFields = ['page', 'sort', 'limit', 'fields']
         //loop over them using for each
         excludedFields.forEach(el => delete queryObj[el])
 
-        //2) Advanced Filtering
+        //1B) Advanced Filtering
         //gt, gte, lt, lte
         let queryStr = JSON.stringify(queryObj)
         queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`)
-        console.log(JSON.parse(queryStr))
-        const query = Tour.find(JSON.parse(queryStr))
+
+
+        let query = Tour.find(JSON.parse(queryStr))
+
+        //2) Sorting
+
+        if (req.query.sort) {
+            //sort by the fields in the query string
+            //replace the , with space so that it can be used in the query
+            const sortBy = req.query.sort.split(',').join(' ')
+            query = query.sort(sortBy)
+        }
+        //default sorting
+        else {
+            query = query.sort('-createdAt')
+        }
+
+        //3) Field limiting
+        if (req.query.fields) {
+            const fields = req.query.fields.split(',').join(' ')
+            query = query.select(fields)
+        } else {
+            query = query.select('-__v')
+        }
 
 
         const allTours = await query
