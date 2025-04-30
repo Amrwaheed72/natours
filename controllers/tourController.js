@@ -2,7 +2,27 @@ import { Tour } from '../models/tourModel.js'
 
 export const getAllTours = async (req, res) => {
     try {
-        const allTours = await Tour.find()
+        //BUILD QUERY
+        //1) Filtering
+        // get the fields of req.query out of it and store it in new object so that it doesnt affect the original object
+        const queryObj = { ...req.query }
+        const excludedFields = ['page', 'sort', 'limit', 'fields']
+        //loop over them using for each
+        excludedFields.forEach(el => delete queryObj[el])
+
+        //2) Advanced Filtering
+        //gt, gte, lt, lte
+        let queryStr = JSON.stringify(queryObj)
+        queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`)
+        console.log(JSON.parse(queryStr))
+        const query = Tour.find(JSON.parse(queryStr))
+
+
+        const allTours = await query
+
+
+
+        //SENDING RESPONSE
         res.status(200).json({
             status: 'success',
             results: allTours.length,
