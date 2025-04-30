@@ -1,5 +1,12 @@
 import { Tour } from '../models/tourModel.js'
 
+export const aliasTopTours = (req, res, next) => {
+    req.query.sort = '-ratingsAverage,price'
+    req.query.limit = '5'
+    req.query.fields = 'name,price,duration,summary,difficulty'
+    next()
+}
+
 export const getAllTours = async (req, res) => {
     try {
         //BUILD QUERY
@@ -51,7 +58,6 @@ export const getAllTours = async (req, res) => {
 
 
         const allTours = await query
-
 
 
         //SENDING RESPONSE
